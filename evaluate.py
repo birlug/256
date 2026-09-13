@@ -119,11 +119,14 @@ def build_image(sol_dir: Path, tag: str) -> tuple[str | None, float]:
 
 
 def run_phase(tag: str, args: list[str], work: Path, label: str) -> tuple[str | None, float]:
-    uid, gid = os.getuid(), os.getgid()
+   if hasattr(os, "getuid"):
+        user_args = ["--user", f"{os.getuid()}:{os.getgid()}"]
+    else:
+        user_args = []
     name = f"{tag}-{label}-{os.getpid()}"
     cmd = [
         "run", "--name", name, "--rm", "--network", "none",
-        "--user", f"{uid}:{gid}",
+        *user_args,
         "-v", f"{work}:/data",
         tag, *args,
     ]
