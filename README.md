@@ -68,6 +68,22 @@ optional: `"branch": "main"`, `"dir": "subdir"`.
 
 </details>
 
+<details>
+<summary><b>hint 2</b></summary>
+
+> after the magic `UNCLEJACKIE`, the rest of the file is chunks. `strings` command will show the 4 byte type tags like PARM, IMG, A181, .... apparently, each chunk looks like:
+>
+> ```
+> uint32be  length
+> char      type[4]
+> uint8     extra
+> uint8     extra
+> uint8     payload[length]
+> uint32be  crc
+> ```
+
+</details>
+
 ---
 
 ### For agents
