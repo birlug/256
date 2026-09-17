@@ -84,6 +84,22 @@ optional: `"branch": "main"`, `"dir": "subdir"`.
 
 </details>
 
+<details>
+<summary><b>hint 3</b></summary>
+
+> before compressing the payload (see hint 2 for how a chunk looks), check the second extra byte. that is `kind` flag. transform the payload using the list below, then run your best compression on the result. undo the same transform on decompress.
+>
+> low 3 bits are the `kind`:
+>
+> - `0` nothing. payload is already plain
+> - `1` xor. the key is built from `type`, that extra byte, and `length`
+> - `2` subtract `i % 256` from byte `i`
+> - `3` deinterleave. stride is 2, 3, 4, or 7
+> - `4` reverse the bytes
+> - `5` undo prefix-sum (each byte minus the previous)
+
+</details>
+
 ---
 
 ### For agents
