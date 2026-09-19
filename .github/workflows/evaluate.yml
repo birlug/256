@@ -2,7 +2,8 @@ name: evaluate
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "59 23 * * *"
+      timezone: "Asia/Tehran"
   workflow_dispatch:
 
 jobs:
